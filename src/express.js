@@ -1,6 +1,10 @@
 const express = require('express')
 const app = express()
+const { prisma } = require("./prisma")
 const port = 3000
+
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
 
 //------------Importation des routes-----------------
 const userRoutes = require("./routes/user")
@@ -12,34 +16,34 @@ const objectRoutes = require("./routes/object")
 
 app.post("/user/create", userRoutes.createUser)
 app.delete("/user/delete", userRoutes.deleteUser)
-app.get("/user/information", userRoutes.infoUser)
-app.get("/user/list", userRoutes.listUser)
-app.post("/user/login", userRoutes.login)
-app.post("/user/update", userRoutes.updateUser)
-app.post("/user/updatePwd", userRoutes.updatePwd)
+// app.get("/user/information", userRoutes.infoUser)
+// app.get("/user/list", userRoutes.listUser)
+// app.post("/user/login", userRoutes.login)
+// app.post("/user/update", userRoutes.updateUser)
+// app.post("/user/updatePwd", userRoutes.updatePwd)
 
 //--------------Room----------------
 
-app.post("/room/create", roomRoutes.createRoom)
-app.delete("/room/delete", roomRoutes.deleteRoom)
-app.get("/room/information", roomRoutes.infoRoom)
-app.get("/room/list", roomRoutes.listRoom)
-app.post("/room/update", roomRoutes.updateRoom)
+// app.post("/room/create", roomRoutes.createRoom)
+// app.delete("/room/delete", roomRoutes.deleteRoom)
+// app.get("/room/information", roomRoutes.infoRoom)
+// app.get("/room/list", roomRoutes.listRoom)
+// app.post("/room/update", roomRoutes.updateRoom)
 
 //-------------Box---------------
 
-app.post("/box/create", boxRoutes.createBox)
-app.delete("/box/delete", boxRoutes.deleteBox)
-app.get("/box/information", boxRoutes.infoBox)
-app.get("/box/list", boxRoutes.listBox)
-app.post("/box/update", boxRoutes.updateBox)
+// app.post("/box/create", boxRoutes.createBox)
+// app.delete("/box/delete", boxRoutes.deleteBox)
+// app.get("/box/information", boxRoutes.infoBox)
+// app.get("/box/list", boxRoutes.listBox)
+// app.post("/box/update", boxRoutes.updateBox)
 
-//------------Object------------------
+// //------------Object------------------
 
-app.post("/object/create", objectRoutes.createObject)
-app.delete("/object/delete", objectRoutes.deleteObject)
-app.get("/object/list", objectRoutes.listObject)
-app.post("/object/update", objectRoutes.updateObject)
+// app.post("/object/create", objectRoutes.createObject)
+// app.delete("/object/delete", objectRoutes.deleteObject)
+// app.get("/object/list", objectRoutes.listObject)
+// app.post("/object/update", objectRoutes.updateObject)
 
 
 // respond with "hello world" when a GET request is made to the homepage

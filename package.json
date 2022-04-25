@@ -1,5 +1,5 @@
 {
-  "name": "express.js",
+  "name": "express",
   "version": "1.0.0",
   "description": "TFE 2022 BAC 3 heh",
   "main": "express.js",
@@ -17,6 +17,12 @@
   },
   "homepage": "https://github.com/Juarez75/TFE#readme",
   "dependencies": {
+    "@prisma/client": "^3.12.0",
     "express": "^4.17.3"
-  }
+  },
+  "devDependencies": {
+    "prisma": "^3.12.0",
+    "nodemon": "^2.0.12"
+  },
+  "keywords": []
 }

@@ -2,7 +2,9 @@ const { prisma } = require("../../prisma")
 
 async function createUser(req, res)
 {
-    const user = await prisma.user.create({
+    try{
+        
+        const user = await prisma.user.create({
         data: {
             mail: req.body.mail,
             password: req.body.password,
@@ -12,6 +14,10 @@ async function createUser(req, res)
             creator: "API"
         }
     })
-    res.status(200).send("Validé")
+    res.status(200).send(user)
+}catch(error){
+    console.log(error)
+    res.status(400).send("Une erreur s'est produite")
+}
 }
 module.exports = createUser

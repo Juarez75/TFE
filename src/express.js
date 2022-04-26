@@ -8,9 +8,9 @@ app.use(express.json())
 
 //------------Importation des routes-----------------
 const userRoutes = require("./routes/user")
-const roomRoutes = require("./routes/room")
-const boxRoutes = require("./routes/box")
-const objectRoutes = require("./routes/object")
+// const roomRoutes = require("./routes/room")
+// const boxRoutes = require("./routes/box")
+// const objectRoutes = require("./routes/object")
 
 //-----------User---------------
 

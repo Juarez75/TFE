@@ -2,9 +2,10 @@ const { prisma } = require("../../prisma")
 
 async function listRoom(req, res) {
   try {
+    const id = parseInt(req.params.id)
     const rooms = await prisma.room.findMany({
       where: {
-        id: req.body.id_user
+        id_user: id
       }
     })
     res.status(200).send(rooms)

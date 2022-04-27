@@ -7,7 +7,7 @@ async function deleteUser(req, res) {
         id: req.body.id
       }
     })
-    res.status(200).send("Validé")
+    res.status(200).send("Suppression effectuée")
   } catch (error) {
     console.log(error)
     res.status(400).send("Erreur")

@@ -2,9 +2,10 @@ const { prisma } = require("../../prisma")
 
 async function listBox(req, res) {
   try {
+    const id = parseInt(req.params.id)
     const box = await prisma.box.findMany({
       where: {
-        id: req.body.id_user
+        id_user: id
       }
     })
     res.status(200).send(box)

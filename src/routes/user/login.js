@@ -12,9 +12,9 @@ async function login(req, res) {
     })
     //On vérifie si l'utilisateur existe avec son adresse email
     if (result != null) {
-      const exist = compare(result.password, password)
+      const exist = password.localeCompare(result.password)
       //On vérifie si le mdp correspond bien à l'email donné
-      if (exist == true) {
+      if (exist == 0) {
         const user = {
           id: result.id,
           mail: result.mail

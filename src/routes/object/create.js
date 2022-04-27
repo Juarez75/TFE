@@ -4,7 +4,7 @@ async function createObject(req, res) {
   try {
     await prisma.object.create({
       data: {
-        id_room: req.body.id_box,
+        id_box: req.body.id_box,
         id_user: req.body.id_user,
         name: req.body.name
       }

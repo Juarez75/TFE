@@ -9,8 +9,8 @@ async function updatePwd(req, res) {
         id: req.body.id
       }
     })
-    const verifyPwd = compare(lastPwd, result.password)
-    if ((verifyPwd = true)) {
+    const verifyPwd = lastPwd.localeCompare(result.password)
+    if (verifyPwd == 0) {
       await prisma.user.update({
         where: {
           id: req.body.id

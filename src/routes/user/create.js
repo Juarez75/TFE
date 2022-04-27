@@ -2,6 +2,14 @@ const { prisma } = require("../../prisma")
 
 async function createUser(req, res) {
   try {
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        mail: req.body.mail
+      }
+    })
+    if (existingUser != null) {
+      return res.status(403).send("L'email a déjà un compte")
+    }
     const user = await prisma.user.create({
       data: {
         mail: req.body.mail,

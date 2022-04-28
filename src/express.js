@@ -1,10 +1,15 @@
+//dependances
 const express = require("express")
 const app = express()
 const { prisma } = require("./prisma")
 const port = 3000
+require("dotenv").config()
+const jwt = require("jsonwebtoken")
+const { jwtMiddleware } = require("./jwt")
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+app.use(jwtMiddleware)
 
 //------------Importation des routes-----------------
 const userRoutes = require("./routes/user")
@@ -46,16 +51,9 @@ app.get("/object/list/:id", objectRoutes.listObject)
 app.post("/object/update", objectRoutes.updateObject)
 
 // respond with "hello world" when a GET request is made to the homepage
-app.get("/:tagId", (req, res) => {
-  //   const isaNumber = isNaN(req.params.tagId)
-  //   if ((isaNumber = false)) {
-  //     res.send("tagId" + req.params.tagId)
-  //   } else {
-  //     res.send("TG")
-  //   }
-  const isaNumber = isNaN(req.params.tagId)
-  if (isaNumber == false) res.send("TROP")
-  res.send("bg")
+app.get("/rien", (req, res) => {
+  const decoded = jwt.decode(req.json)
+  res.send(req.json)
 })
 
 app.post("/", (req, res) => {

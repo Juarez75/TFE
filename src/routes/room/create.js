@@ -1,4 +1,5 @@
 const { prisma } = require("../../prisma")
+const jwt = require("jsonwebtoken")
 
 async function createRoom(req, res) {
   try {

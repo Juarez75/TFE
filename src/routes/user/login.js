@@ -1,5 +1,6 @@
 const { prisma } = require("../../prisma")
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 
 async function login(req, res) {
   try {
@@ -30,9 +31,12 @@ async function login(req, res) {
     }
     const user = {
       id: result.id,
-      mail: result.mail
+      type: result.type
     }
-    res.status(200).send(user)
+    const token = jwt.sign(user, process.env.TOKEN_SECRET, {
+      expiresIn: "3h"
+    })
+    res.status(200).send(token)
   } catch (error) {
     console.log(error)
     res.status(400).send("Une erreur est survenue")

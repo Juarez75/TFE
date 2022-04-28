@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt")
 
 async function createUser(req, res) {
   try {
+    //on récupère les données envoyées
     const password = req.body.password
     const mail = req.body.mail
     const firstname = req.body.firstname
@@ -25,7 +26,7 @@ async function createUser(req, res) {
       }
     })
     if (existingUser != null) {
-      return res.status(403).send("L'email a déjà un compte")
+      return res.status(403).send("L'email est déjà reliée à un autre compte")
     }
 
     //on hash le mdp

@@ -2,21 +2,24 @@ const { prisma } = require("../../prisma")
 
 async function infoRoom(req, res) {
   try {
-    const isaNumber = isNaN(req.params.id)
-    if (isaNumber == false) {
-      const id = parseInt(req.params.id)
-      const room = await prisma.room.findUnique({
-        where: {
-          id: id
-        }
-      })
-      res.status(200).send(room)
-    } else {
-      res.status(403).send("Une erreur est survenue")
+    id = req.params.id
+    //on vérifie que c'est bien un nombre et on le convertit
+    const isaNumber = isNaN(id)
+    if (isaNumber == true) {
+      return res.status(403).send("Int attendu")
     }
+    id = parseInt(id)
+
+    //on récupère les données dans la bdd
+    const room = await prisma.room.findUnique({
+      where: {
+        id: id
+      }
+    })
+    res.status(200).send(room)
   } catch (error) {
     console.log(error)
-    res.status(400).send("Erreur")
+    res.status(400).send("Une erreur est survenue")
   }
 }
 module.exports = infoRoom

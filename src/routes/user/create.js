@@ -47,7 +47,7 @@ async function createUser(req, res) {
     res.status(200).send(user)
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur s'est produite")
+    res.status(400).send("Une erreur est survenue")
   }
 }
 module.exports = createUser

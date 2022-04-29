@@ -3,10 +3,20 @@ const { prisma } = require("../../prisma")
 async function createBox(req, res) {
   try {
     //on récupère les données
-    const id_user = req.body.id
+    const id_user = req.auth.id
     const name = req.body.name
     const comment = req.body.comment
     const id_room = req.body.id_room
+
+    //vérification que c'est la pièce appartient bien à l'utilisateur
+    const room = await prisma.room.findUnique({
+      where: {
+        id: id_room
+      }
+    })
+    if (id_user != room.id_user) {
+      return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
+    }
 
     //on ajoute la boite à la bdd
     const box = await prisma.box.create({

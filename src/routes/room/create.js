@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken")
 async function createRoom(req, res) {
   try {
     //on récupère les données
-    const id_user = req.body.id
+    const id_user = req.auth.id
     const name = req.body.name
     const comment = req.body.comment
 

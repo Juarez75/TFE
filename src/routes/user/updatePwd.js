@@ -6,11 +6,12 @@ async function updatePwd(req, res) {
     //on récupère les données
     const lastPwd = req.body.lastPwd
     const newPwd = req.body.newPwd
+    const id = req.auth.id
 
     //on récupère le mdp de l'utilisateur dans la bdd
     const result = await prisma.user.findUnique({
       where: {
-        id: req.body.id
+        id: id
       }
     })
 
@@ -27,7 +28,7 @@ async function updatePwd(req, res) {
     //on actualise le mdp de l'utilisateur si tout est complet
     await prisma.user.update({
       where: {
-        id: req.body.id
+        id: id
       },
       data: {
         password: hash

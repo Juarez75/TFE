@@ -4,7 +4,7 @@ const Joi = require("joi")
 async function updateUser(req, res) {
   try {
     //on récupère les données
-    const id = req.body.id
+    const id = req.auth.id
     const mail = req.body.mail
     const firstname = req.body.firstname
     const lastname = req.body.lastname

@@ -6,10 +6,12 @@ const port = 3000
 require("dotenv").config()
 const jwt = require("jsonwebtoken")
 const { jwtMiddleware } = require("./jwt")
+const cookieParser = require("cookie-parser")
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(jwtMiddleware)
+app.use(cookieParser())
 
 //------------Importation des routes-----------------
 const userRoutes = require("./routes/user")
@@ -52,8 +54,9 @@ app.post("/object/update", objectRoutes.updateObject)
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get("/rien", (req, res) => {
-  const decoded = jwt.decode(req.json)
-  res.send(req.json)
+  const decoded = jwt.decode(req.cookies.access_token)
+  console.log(req.auth)
+  res.send(decoded)
 })
 
 app.post("/", (req, res) => {

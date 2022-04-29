@@ -3,7 +3,7 @@ const { prisma } = require("../../prisma")
 async function listRoom(req, res) {
   try {
     //on récupère l'id utilisateur grâce au token
-    const id = parseInt(req.params.id)
+    const id = req.auth.id
 
     //on recherche toutes les pièces de l'utilisateur
     const rooms = await prisma.room.findMany({

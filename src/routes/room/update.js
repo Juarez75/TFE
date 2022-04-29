@@ -6,6 +6,17 @@ async function updateRoom(req, res) {
     const id = req.body.id
     const name = req.body.name
     const comment = req.body.comment
+    const id_user = req.auth.id
+
+    //vérification que c'est le bon utilisateur
+    const room = await prisma.room.findUnique({
+      where: {
+        id: id
+      }
+    })
+    if (id_user != room.id_user) {
+      return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
+    }
 
     //on actualise les données dans la base de données
     await prisma.room.update({

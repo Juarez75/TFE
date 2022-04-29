@@ -3,7 +3,7 @@ const { prisma } = require("../../prisma")
 async function listObject(req, res) {
   try {
     //on récupère tous les objets de l'utilisateur
-    const id = parseInt(req.params.id)
+    const id = req.auth.id
     const objects = await prisma.object.findMany({
       where: {
         id_user: id

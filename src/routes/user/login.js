@@ -36,7 +36,13 @@ async function login(req, res) {
     const token = jwt.sign(user, process.env.TOKEN_SECRET, {
       expiresIn: "3h"
     })
-    res.status(200).send(token)
+    res
+      .cookie("access_token", token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 3 * 3600000)
+      })
+      .status(200)
+      .send("Connexion réussi")
   } catch (error) {
     console.log(error)
     res.status(400).send("Une erreur est survenue")

@@ -7,6 +7,16 @@ async function updateBox(req, res) {
     const name = req.body.name
     const comment = req.body.comment
 
+    //vérification que c'est le bon utilisateur
+    const box = await prisma.box.findUnique({
+      where: {
+        id: id
+      }
+    })
+    if (id_user != box.id_user) {
+      return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
+    }
+
     //on actualise les données de la boite
     await prisma.box.update({
       where: {

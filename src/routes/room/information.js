@@ -3,6 +3,7 @@ const { prisma } = require("../../prisma")
 async function infoRoom(req, res) {
   try {
     id = req.params.id
+    id_user = req.auth.id
     //on vérifie que c'est bien un nombre et on le convertit
     const isaNumber = isNaN(id)
     if (isaNumber == true) {
@@ -16,6 +17,9 @@ async function infoRoom(req, res) {
         id: id
       }
     })
+    if (id_user != room.id_user) {
+      return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
+    }
     res.status(200).send(room)
   } catch (error) {
     console.log(error)

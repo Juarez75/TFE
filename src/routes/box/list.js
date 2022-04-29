@@ -2,8 +2,8 @@ const { prisma } = require("../../prisma")
 
 async function listBox(req, res) {
   try {
+    const id_user = req.auth.id
     //on récupère tuotes les boites de l'utilisateur
-    const id = parseInt(req.params.id)
     const box = await prisma.box.findMany({
       where: {
         id_user: id

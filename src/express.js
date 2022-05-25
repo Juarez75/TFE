@@ -7,11 +7,17 @@ require("dotenv").config()
 const jwt = require("jsonwebtoken")
 const { jwtMiddleware } = require("./jwt")
 const cookieParser = require("cookie-parser")
+const cors = require("cors")
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(jwtMiddleware)
 app.use(cookieParser())
+app.use(
+  cors({
+    origin: "http://localhost:3001"
+  })
+)
 
 //------------Importation des routes-----------------
 const userRoutes = require("./routes/user")
@@ -59,8 +65,8 @@ app.get("/rien", (req, res) => {
   res.send(decoded)
 })
 
-app.post("/", (req, res) => {
-  res.send("Bonjour")
+app.get("/", (req, res) => {
+  res.send("Salut")
 })
 
 app.listen(port, () => {

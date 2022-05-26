@@ -39,6 +39,7 @@ async function login(req, res) {
     res
       .cookie("access_token", token, {
         httpOnly: true,
+        secure: false,
         expires: new Date(Date.now() + 3 * 3600000)
       })
       .status(200)

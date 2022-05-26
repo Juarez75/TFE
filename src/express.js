@@ -2,28 +2,60 @@
 const express = require("express")
 const app = express()
 const { prisma } = require("./prisma")
-const port = 3000
+const port = 3001
 require("dotenv").config()
 const jwt = require("jsonwebtoken")
-const { jwtMiddleware } = require("./jwt")
+const { UnauthorizedError } = require("express-jwt")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-app.use(jwtMiddleware)
 app.use(cookieParser())
 app.use(
   cors({
-    origin: "http://localhost:3001"
+    origin: "http://localhost:3000",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
   })
 )
+
+// Vérification du JWT dans le cookie
+app.use((request, response, next) => {
+  try {
+    let req = request
+    const route = req.originalUrl
+    const uncheckedRoutes = ["/user/login", "/user/create"]
+
+    // Si on est dans les routes du tableau au dessus, on check rien
+    if (uncheckedRoutes.includes(route)) {
+      return next()
+    }
+
+    const token = req.cookies.access_token
+    const decoded = jwt.decode(token, { complete: true })
+
+    // On vérifie l'authenticitée du cookie
+    try {
+      jwt.verify(token, process.env.TOKEN_SECRET)
+    } catch (error) {
+      throw new UnauthorizedError("invalid_token", err)
+    }
+
+    // On attache l'objet auth à req
+    req["auth"] = decoded.payloa
+    next()
+  } catch (error) {
+    return next(error)
+  }
+})
 
 //------------Importation des routes-----------------
 const userRoutes = require("./routes/user")
 const roomRoutes = require("./routes/room")
 const boxRoutes = require("./routes/box")
 const objectRoutes = require("./routes/object")
+const { contentType } = require("express/lib/response")
 
 //-----------User---------------
 

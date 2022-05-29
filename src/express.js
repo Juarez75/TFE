@@ -75,6 +75,7 @@ app.post("/room/delete", roomRoutes.deleteRoom)
 app.get("/room/information/:id", roomRoutes.infoRoom)
 app.get("/room/list", roomRoutes.listRoom)
 app.post("/room/update", roomRoutes.updateRoom)
+app.get("/room/:id", roomRoutes.oneRoom)
 
 //-------------Box---------------
 
@@ -83,6 +84,7 @@ app.post("/box/delete", boxRoutes.deleteBox)
 app.get("/box/information/:id", boxRoutes.infoBox)
 app.get("/box/list/:id", boxRoutes.listBox)
 app.post("/box/update", boxRoutes.updateBox)
+app.get("/box/:id", boxRoutes.oneBox)
 
 // //------------Object------------------
 

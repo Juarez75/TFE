@@ -32,6 +32,7 @@ model Room {
     id_user       Int
     user          User     @relation(fields: [id_user], references: [id], onDelete: Cascade)
     box           Box[]
+    Object        Object[]
 }
 
 model Box {
@@ -52,6 +53,8 @@ model Object {
     creation_date DateTime @default(now())
     id_user       Int
     id_box        Int
+    id_room       Int
     user          User     @relation(fields: [id_user], references: [id], onDelete: Cascade)
     box           Box      @relation(fields: [id_box], references: [id], onDelete: Cascade)
+    room          Room     @relation(fields: [id_room], references: [id], onDelete: Cascade)
 }

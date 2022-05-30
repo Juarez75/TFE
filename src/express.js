@@ -62,11 +62,12 @@ const { contentType } = require("express/lib/response")
 
 app.post("/user/create", userRoutes.createUser)
 app.post("/user/delete", userRoutes.deleteUser)
-app.get("/user/information/:id", userRoutes.infoUser)
+app.get("/user/information", userRoutes.infoUser)
 app.get("/user/list", userRoutes.listUser)
 app.post("/user/login", userRoutes.login)
 app.post("/user/update", userRoutes.updateUser)
 app.post("/user/updatePwd", userRoutes.updatePwd)
+app.get("/user/disconnect", userRoutes.disconnect)
 
 //--------------Room----------------
 
@@ -82,7 +83,7 @@ app.get("/room/:id", roomRoutes.oneRoom)
 app.post("/box/create", boxRoutes.createBox)
 app.post("/box/delete", boxRoutes.deleteBox)
 app.get("/box/information/:id", boxRoutes.infoBox)
-app.get("/box/list/:id", boxRoutes.listBox)
+app.get("/box/list", boxRoutes.listBox)
 app.post("/box/update", boxRoutes.updateBox)
 app.get("/box/:id", boxRoutes.oneBox)
 
@@ -90,8 +91,9 @@ app.get("/box/:id", boxRoutes.oneBox)
 
 app.post("/object/create", objectRoutes.createObject)
 app.post("/object/delete", objectRoutes.deleteObject)
-app.get("/object/list/:id", objectRoutes.listObject)
+app.get("/object/list", objectRoutes.listObject)
 app.post("/object/update", objectRoutes.updateObject)
+app.get("/object/information/:id", objectRoutes.infoObject)
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get("/rien", (req, res) => {

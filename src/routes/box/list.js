@@ -6,7 +6,10 @@ async function listBox(req, res) {
     //on récupère tuotes les boites de l'utilisateur
     const box = await prisma.box.findMany({
       where: {
-        id_user: id
+        id_user: id_user
+      },
+      include: {
+        room: true
       }
     })
     res.status(200).send(box)

@@ -1,6 +1,6 @@
 const { prisma } = require("../../prisma")
 
-async function infoBox(req, res) {
+async function infoObject(req, res) {
   try {
     //on récuèpre les données
     id_user = req.auth.id
@@ -14,7 +14,7 @@ async function infoBox(req, res) {
     id = parseInt(id)
 
     //on recherche dans la bdd la boite
-    const box = await prisma.box.findUnique({
+    const box = await prisma.object.findUnique({
       where: {
         id: id
       }
@@ -30,4 +30,4 @@ async function infoBox(req, res) {
     res.status(400).send("Une erreur est survenue")
   }
 }
-module.exports = infoBox
+module.exports = infoObject

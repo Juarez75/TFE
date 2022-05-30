@@ -23,7 +23,7 @@ async function oneBox(req, res) {
     if (id_user != box.id_user) {
       return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
     }
-    res.status(200).send(room)
+    res.status(200).send(box)
   } catch (error) {
     console.log(error)
     res.status(400).send("Une erreur est survenue")

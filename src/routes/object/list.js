@@ -7,6 +7,10 @@ async function listObject(req, res) {
     const objects = await prisma.object.findMany({
       where: {
         id_user: id
+      },
+      include: {
+        room: true,
+        box: true
       }
     })
     res.status(200).send(objects)

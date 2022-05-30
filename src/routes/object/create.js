@@ -5,6 +5,7 @@ async function createObject(req, res) {
     //on récupère les données
     const id_box = req.body.id_box
     const id_user = req.auth.id
+    const id_room = req.body.id_room
     const name = req.body.name
 
     //vérification que c'est le bon utilisateur
@@ -22,7 +23,8 @@ async function createObject(req, res) {
       data: {
         id_box: id_box,
         id_user: id_user,
-        name: name
+        name: name,
+        id_room: id_room
       }
     })
     res.status(200).send("Ajout effectué")

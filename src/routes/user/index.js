@@ -6,6 +6,7 @@ const login = require("./login")
 const updateUser = require("./update")
 const updatePwd = require("./updatePwd")
 const disconnect = require("./disconnect")
+const search = require("./search")
 
 exports.createUser = createUser
 exports.deleteUser = deleteUser
@@ -15,3 +16,4 @@ exports.login = login
 exports.updateUser = updateUser
 exports.updatePwd = updatePwd
 exports.disconnect = disconnect
+exports.search = search

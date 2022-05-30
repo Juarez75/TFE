@@ -68,6 +68,7 @@ app.post("/user/login", userRoutes.login)
 app.post("/user/update", userRoutes.updateUser)
 app.post("/user/updatePwd", userRoutes.updatePwd)
 app.get("/user/disconnect", userRoutes.disconnect)
+app.post("/search", userRoutes.search)
 
 //--------------Room----------------
 

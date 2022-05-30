@@ -56,6 +56,7 @@ const userRoutes = require("./routes/user")
 const roomRoutes = require("./routes/room")
 const boxRoutes = require("./routes/box")
 const objectRoutes = require("./routes/object")
+const societyRoutes = require("./routes/society")
 const { contentType } = require("express/lib/response")
 
 //-----------User---------------
@@ -95,6 +96,12 @@ app.post("/object/delete", objectRoutes.deleteObject)
 app.get("/object/list", objectRoutes.listObject)
 app.post("/object/update", objectRoutes.updateObject)
 app.get("/object/information/:id", objectRoutes.infoObject)
+
+// -------------Society------------------
+app.get("/society/users", societyRoutes.allUser)
+app.get("/society/user/:id", societyRoutes.user)
+app.get("/society/room/:id", societyRoutes.roomUser)
+app.post("/society/search", societyRoutes.searchUser)
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get("/rien", (req, res) => {

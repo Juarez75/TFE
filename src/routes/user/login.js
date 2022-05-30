@@ -31,7 +31,8 @@ async function login(req, res) {
     }
     const user = {
       id: result.id,
-      type: result.type
+      type: result.type,
+      society_code: result.society_code
     }
     const token = jwt.sign(user, process.env.TOKEN_SECRET, {
       expiresIn: "3h"
@@ -43,7 +44,7 @@ async function login(req, res) {
         expires: new Date(Date.now() + 3 * 3600000)
       })
       .status(200)
-      .send("Connexion réussi")
+      .send(user)
   } catch (error) {
     console.log(error)
     res.status(400).send("Une erreur est survenue")

@@ -8,9 +8,39 @@ async function createUser(req, res) {
     const password = req.body.password
     const mail = req.body.mail
     const firstname = req.body.firstname
-    const lastname = req.body.lastname
-    const typeUser = 0
+    var lastname = req.body.lastname
+    const typeUser = parseInt(req.body.type)
     const creator = "API"
+    var society_code = parseInt(req.body.society_code)
+    const societyUser = 1
+    var existingSociety
+
+    if (typeUser == 1) {
+      society_code = Math.floor(Math.random() * 100000)
+      lastname = "Society"
+      do {
+        existingSociety = await prisma.user.findMany({
+          where: {
+            type: typeUser,
+            society_code: society_code
+          }
+        })
+      } while (!existingSociety)
+    }
+
+    if (typeUser == 2 && !isNaN(society_code)) {
+      const existingSociety = await prisma.user.findMany({
+        where: {
+          type: societyUser,
+          society_code: society_code
+        }
+      })
+      console.log(existingSociety)
+      if (existingSociety.length == 0)
+        return res.status(403).send("Code de société inexistant")
+    }
+
+    if (isNaN(society_code)) society_code = 0
 
     //on vérifie si l'email est valide
     const mailSchema = Joi.string().email().required()
@@ -41,7 +71,8 @@ async function createUser(req, res) {
         firstname: firstname,
         lastname: lastname,
         type: typeUser,
-        creator: creator
+        creator: creator,
+        society_code: society_code
       }
     })
     res.status(200).send(user)

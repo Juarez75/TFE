@@ -18,6 +18,7 @@ model User {
     lastname      String
     password      String
     type          Int
+    society_code  Int      @default(00000)
     creation_date DateTime @default(now())
     creator       String
     rooms         Room[]

@@ -102,9 +102,15 @@ app.get("/society/users", societyRoutes.allUser)
 app.get("/society/user/:id", societyRoutes.user)
 app.get("/society/room/:id", societyRoutes.roomUser)
 app.post("/society/search", societyRoutes.searchUser)
+
 // --------------Tag----------------------
 app.post("/tag/create", tagRoutes.createTag)
 app.post("/tag/delete", tagRoutes.deleteTag)
+app.get("/tag/user", tagRoutes.userTag)
+app.get("/tag/society", tagRoutes.societyTag)
+app.post("/tag/link", tagRoutes.linkTag)
+app.post("/tag/deletelink", tagRoutes.destroyLinkTag)
+app.get("/tag/box/:id", tagRoutes.tagOnBox)
 
 app.listen(port, () => {
   console.log("App listening on port " + port)

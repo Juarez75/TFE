@@ -17,9 +17,15 @@ async function infoBox(req, res) {
     const box = await prisma.box.findUnique({
       where: {
         id: id
+      },
+      include: {
+        TagOnBox: {
+          include: {
+            tag: true
+          }
+        }
       }
     })
-
     //on vérifie que c'est le bon utilisateur
     if (id_user != box.id_user) {
       return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")

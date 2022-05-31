@@ -9,6 +9,9 @@ async function infoUser(req, res) {
     const user = await prisma.user.findUnique({
       where: {
         id: id
+      },
+      include: {
+        Tag: true
       }
     })
 
@@ -17,7 +20,8 @@ async function infoUser(req, res) {
       firstname: user.firstname,
       lastname: user.lastname,
       society_code: user.society_code,
-      color: user.color
+      color: user.color,
+      tag: user.Tag
     }
     res.status(200).send(data)
   } catch (error) {

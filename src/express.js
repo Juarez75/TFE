@@ -57,7 +57,7 @@ const roomRoutes = require("./routes/room")
 const boxRoutes = require("./routes/box")
 const objectRoutes = require("./routes/object")
 const societyRoutes = require("./routes/society")
-const { contentType } = require("express/lib/response")
+const tagRoutes = require("./routes/tag")
 
 //-----------User---------------
 
@@ -102,18 +102,10 @@ app.get("/society/users", societyRoutes.allUser)
 app.get("/society/user/:id", societyRoutes.user)
 app.get("/society/room/:id", societyRoutes.roomUser)
 app.post("/society/search", societyRoutes.searchUser)
-
-// respond with "hello world" when a GET request is made to the homepage
-app.get("/rien", (req, res) => {
-  const decoded = jwt.decode(req.cookies.access_token)
-  console.log(req.auth)
-  res.send(decoded)
-})
-
-app.get("/", (req, res) => {
-  res.send("Salut")
-})
+// --------------Tag----------------------
+app.post("/tag/create", tagRoutes.createTag)
+app.post("/tag/delete", tagRoutes.deleteTag)
 
 app.listen(port, () => {
-  console.log("Example app listening on port ${port}")
+  console.log("App listening on port " + port)
 })

@@ -17,7 +17,15 @@ async function oneRoom(req, res) {
         id: id
       },
       include: {
-        box: true
+        box: {
+          include: {
+            TagOnBox: {
+              include: {
+                tag: true
+              }
+            }
+          }
+        }
       }
     })
     if (id_user != room.id_user) {

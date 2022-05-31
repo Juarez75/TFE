@@ -9,7 +9,12 @@ async function listBox(req, res) {
         id_user: id_user
       },
       include: {
-        room: true
+        room: true,
+        TagOnBox: {
+          include: {
+            tag: true
+          }
+        }
       }
     })
     res.status(200).send(box)

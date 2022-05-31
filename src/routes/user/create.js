@@ -72,7 +72,8 @@ async function createUser(req, res) {
         lastname: lastname,
         type: typeUser,
         creator: creator,
-        society_code: society_code
+        society_code: society_code,
+        color: "#212529"
       }
     })
     res.status(200).send(user)

@@ -21,6 +21,7 @@ model User {
     society_code  Int      @default(00000)
     creation_date DateTime @default(now())
     creator       String
+    color         String   @default("#696969")
     rooms         Room[]
     box           Box[]
     objects       Object[]

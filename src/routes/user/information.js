@@ -11,7 +11,15 @@ async function infoUser(req, res) {
         id: id
       }
     })
-    res.status(200).send(user)
+
+    data = {
+      mail: user.mail,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      society_code: user.society_code,
+      color: user.color
+    }
+    res.status(200).send(data)
   } catch (error) {
     console.log(error)
     res.status(400).send("Une erreur est survenue")

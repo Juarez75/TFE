@@ -44,6 +44,7 @@ model Box {
     name          String
     comment       String?
     creation_date DateTime   @default(now())
+    empty         Boolean    @default(false)
     id_user       Int
     id_room       Int
     user          User       @relation(fields: [id_user], references: [id], onDelete: Cascade)

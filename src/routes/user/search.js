@@ -25,6 +25,9 @@ async function search(req, res) {
       },
       include: {
         room: true
+      },
+      orderBy: {
+        name: "asc"
       }
     })
     const object = await prisma.object.findMany({
@@ -69,6 +72,9 @@ async function search(req, res) {
             contains: text,
             mode: "insensitive"
           }
+        },
+        orderBy: {
+          name: "asc"
         },
         include: {
           link: {

@@ -24,6 +24,9 @@ async function oneRoom(req, res) {
                 tag: true
               }
             }
+          },
+          orderBy: {
+            name: "asc"
           }
         }
       }

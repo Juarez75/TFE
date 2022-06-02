@@ -7,7 +7,11 @@ async function updateRoom(req, res) {
     const name = req.body.name
     const comment = req.body.comment
     const id_user = req.auth.id
+    const type = parseInt(req.body.type)
+    console.log(type)
 
+    if (type == null) type = 0
+    console.log(type)
     //vérification que c'est le bon utilisateur
     const room = await prisma.room.findUnique({
       where: {
@@ -25,7 +29,8 @@ async function updateRoom(req, res) {
       },
       data: {
         name: name,
-        comment: comment
+        comment: comment,
+        type: type
       }
     })
     res.status(200).send("Modification effectuée")

@@ -101,8 +101,8 @@ app.get("/object/information/:id", objectRoutes.infoObject)
 // -------------Society------------------
 app.get("/society/users", societyRoutes.allUser)
 app.get("/society/user/:id", societyRoutes.user)
-app.get("/society/room/:id", societyRoutes.roomUser)
 app.post("/society/search", societyRoutes.searchUser)
+app.post("/society/updateColor", societyRoutes.updateColor)
 
 // --------------Tag----------------------
 app.post("/tag/create", tagRoutes.createTag)

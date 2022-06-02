@@ -1,9 +1,9 @@
 const allUser = require("./allUser")
 const user = require("./user")
-const roomUser = require("./roomUser")
 const searchUser = require("./searchUser")
+const updateColor = require("./updateColor")
 
 exports.allUser = allUser
 exports.user = user
-exports.roomUser = roomUser
 exports.searchUser = searchUser
+exports.updateColor = updateColor

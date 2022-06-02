@@ -33,6 +33,7 @@ model Room {
     name          String
     comment       String?
     creation_date DateTime @default(now())
+    type          Int
     id_user       Int
     user          User     @relation(fields: [id_user], references: [id], onDelete: Cascade)
     box           Box[]

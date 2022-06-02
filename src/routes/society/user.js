@@ -21,9 +21,13 @@ async function listRoom(req, res) {
     const rooms = await prisma.room.findMany({
       where: {
         id_user: id
+      },
+      include: {
+        _count: {
+          select: { box: true }
+        }
       }
     })
-
     res.status(200).send(rooms)
   } catch (error) {
     console.log(error)

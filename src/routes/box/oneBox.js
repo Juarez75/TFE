@@ -17,7 +17,12 @@ async function oneBox(req, res) {
         id: id
       },
       include: {
-        objects: true
+        objects: true,
+        room: {
+          select: {
+            type: true
+          }
+        }
       }
     })
     if (id_user != box.id_user) {

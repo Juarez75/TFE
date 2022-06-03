@@ -20,7 +20,8 @@ async function oneBox(req, res) {
         objects: true,
         room: {
           select: {
-            type: true
+            type: true,
+            id: true
           }
         }
       }

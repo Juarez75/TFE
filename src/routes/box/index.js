@@ -5,6 +5,7 @@ const listBox = require("./list")
 const updateBox = require("./update")
 const oneBox = require("./oneBox")
 const emptyBox = require("./empty")
+const fragileBox = require("./fragile")
 
 exports.createBox = createBox
 exports.deleteBox = deleteBox
@@ -13,3 +14,4 @@ exports.listBox = listBox
 exports.updateBox = updateBox
 exports.oneBox = oneBox
 exports.emptyBox = emptyBox
+exports.fragileBox = fragileBox

@@ -89,6 +89,7 @@ app.get("/box/list", boxRoutes.listBox)
 app.post("/box/update", boxRoutes.updateBox)
 app.get("/box/:id", boxRoutes.oneBox)
 app.post("/box/empty", boxRoutes.emptyBox)
+app.post("/box/fragile", boxRoutes.fragileBox)
 
 // //------------Object------------------
 

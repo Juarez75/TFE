@@ -25,6 +25,15 @@ async function listRoom(req, res) {
       include: {
         _count: {
           select: { box: true }
+        },
+        TagOnRoom: {
+          include: {
+            tag: {
+              select: {
+                color: true
+              }
+            }
+          }
         }
       }
     })

@@ -109,8 +109,10 @@ app.post("/tag/create", tagRoutes.createTag)
 app.post("/tag/delete", tagRoutes.deleteTag)
 app.get("/tag/user", tagRoutes.userTag)
 app.get("/tag/society", tagRoutes.societyTag)
-app.post("/tag/link", tagRoutes.linkTag)
-app.post("/tag/deletelink", tagRoutes.destroyLinkTag)
+app.post("/tag/linkBox", tagRoutes.linkBox)
+app.post("/tag/deletelinkbox", tagRoutes.destroyLinkBox)
+app.post("/tag/linkRoom", tagRoutes.linkRoom)
+app.post("/tag/deletelinkroom", tagRoutes.destroyLinkRoom)
 app.get("/tag/box/:id", tagRoutes.tagOnBox)
 
 app.listen(port, () => {

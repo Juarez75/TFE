@@ -1,15 +1,15 @@
 const { prisma } = require("../../prisma")
 
-async function linkTag(req, res) {
+async function linkroom(req, res) {
   try {
     //on récupère les données
-    const id_box = parseInt(req.body.id_box)
+    const id_room = parseInt(req.body.id_room)
     const id_tag = parseInt(req.body.id_tag)
 
     //Ajout du tag dans la db
-    await prisma.tagOnBox.create({
+    await prisma.tagOnRoom.create({
       data: {
-        id_box: id_box,
+        id_room: id_room,
         id_tag: id_tag
       }
     })
@@ -19,4 +19,4 @@ async function linkTag(req, res) {
     return res.status(400).send("Une erreur est survenue")
   }
 }
-module.exports = linkTag
+module.exports = linkroom

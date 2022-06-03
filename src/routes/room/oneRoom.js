@@ -28,6 +28,11 @@ async function oneRoom(req, res) {
           orderBy: {
             name: "asc"
           }
+        },
+        TagOnRoom: {
+          include: {
+            tag: true
+          }
         }
       }
     })

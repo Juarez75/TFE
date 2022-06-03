@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Room" ADD COLUMN     "stage" INTEGER NOT NULL DEFAULT 0;

@@ -15,6 +15,13 @@ async function infoRoom(req, res) {
     const room = await prisma.room.findUnique({
       where: {
         id: id
+      },
+      include: {
+        TagOnRoom: {
+          include: {
+            tag: true
+          }
+        }
       }
     })
     if (id_user != room.id_user) {

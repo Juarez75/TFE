@@ -1,0 +1,44 @@
+const { prisma } = require("../../prisma")
+
+async function createMany(req, res) {
+  try {
+    const id_user = req.auth.id
+    const number = parseInt(req.body.number)
+    const id_room = req.body.id_room
+    var max
+    var name
+
+    //vérification que c'est la pièce appartient bien à l'utilisateur
+    const room = await prisma.room.findUnique({
+      where: {
+        id: id_room
+      }
+    })
+    if (id_user != room.id_user) {
+      return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
+    }
+    //on compte le nombre de box que l'utilisateur a déjà
+    var existBox = await prisma.box.count({
+      where: {
+        id_user: id_user
+      }
+    })
+    max = number + existBox
+    existBox = existBox + 1
+    for (i = existBox; i <= max; i++) {
+      name = "box" + i
+      await prisma.box.create({
+        data: {
+          id_room: id_room,
+          id_user: id_user,
+          name: name
+        }
+      })
+    }
+    res.status(200).send("AJout réussi")
+  } catch (error) {
+    console.log(error)
+    res.status(400).send("Une erreur est survenue")
+  }
+}
+module.exports = createMany

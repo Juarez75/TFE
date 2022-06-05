@@ -105,6 +105,7 @@ app.get("/society/users", societyRoutes.allUser)
 app.get("/society/user/:id", societyRoutes.user)
 app.post("/society/search", societyRoutes.searchUser)
 app.post("/society/updateColor", societyRoutes.updateColor)
+app.post("/society/pdf", societyRoutes.pdf)
 
 // --------------Tag----------------------
 app.post("/tag/create", tagRoutes.createTag)

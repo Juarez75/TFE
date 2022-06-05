@@ -11,7 +11,6 @@ async function createRoom(req, res) {
     const stage = parseInt(req.body.stage)
     const tag = parseInt(req.body.tag)
     var room
-
     if (type == null) type = 0
     //Ajout d'une pièce dans la bdd
     if (isNaN(tag)) {

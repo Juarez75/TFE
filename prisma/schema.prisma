@@ -18,7 +18,7 @@ model User {
     lastname      String
     password      String
     type          Int
-    society_code  Int      @default(00000)
+    society_code  Int      @default(0)
     creation_date DateTime @default(now())
     creator       String
     color         String   @default("#696969")

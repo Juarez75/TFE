@@ -1,13 +1,14 @@
 //dependances
 const express = require("express")
 const app = express()
-const { prisma } = require("./prisma")
 const port = 3001
 require("dotenv").config()
 const jwt = require("jsonwebtoken")
 const { UnauthorizedError } = require("express-jwt")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())

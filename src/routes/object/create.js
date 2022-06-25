@@ -5,7 +5,6 @@ async function createObject(req, res) {
     //on récupère les données
     const id_box = req.body.id_box
     const id_user = req.auth.id
-    const id_room = req.body.id_room
     const name = req.body.name
 
     //vérification que c'est le bon utilisateur
@@ -15,7 +14,7 @@ async function createObject(req, res) {
       }
     })
     if (id_user != box.id_user) {
-      return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
+      return res.status(403).send("BAD_REQUEST")
     }
 
     //on ajoute l'objet dans la bdd
@@ -23,14 +22,13 @@ async function createObject(req, res) {
       data: {
         id_box: id_box,
         id_user: id_user,
-        name: name,
-        id_room: id_room
+        name: name
       }
     })
-    res.status(200).send("Ajout effectué")
+    res.status(200).send("Requête effectuée")
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = createObject

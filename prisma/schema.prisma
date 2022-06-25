@@ -12,34 +12,39 @@ datasource db {
 }
 
 model User {
-    id            Int      @id @default(autoincrement())
-    mail          String   @unique
+    id            Int       @id @default(autoincrement())
+    mail          String    @unique
     firstname     String
     lastname      String
     password      String
     type          Int
-    society_code  Int      @default(0)
-    creation_date DateTime @default(now())
-    creator       String
-    color         String   @default("#696969")
+    id_society    Int?
+    society       Society?  @relation(fields: [id_society], references: [id], onDelete: SetNull)
+    creation_date DateTime  @default(now())
     rooms         Room[]
     box           Box[]
-    objects       Object[]
-    Tag           Tag[]
+    Tag           TagUser[]
+    Object        Object[]
 }
 
 model Room {
     id            Int         @id @default(autoincrement())
     name          String
-    comment       String?
     creation_date DateTime    @default(now())
     type          Int
     id_user       Int
     stage         Int         @default(0)
+    id_TagSociety Int?
+    TagSociety    TagSociety? @relation(fields: [id_TagSociety], references: [id], onDelete: SetNull)
     user          User        @relation(fields: [id_user], references: [id], onDelete: Cascade)
     box           Box[]
-    Object        Object[]
-    TagOnRoom     TagOnRoom[]
+}
+
+model Society {
+    id         Int          @id @default(autoincrement())
+    color      String
+    User       User[]
+    TagSociety TagSociety[]
 }
 
 model Box {
@@ -57,33 +62,30 @@ model Box {
     TagOnBox      TagOnBox[]
 }
 
-model Tag {
-    id           Int         @id @default(autoincrement())
-    name         String
-    user         User        @relation(fields: [id_user], references: [id], onDelete: Cascade)
-    id_user      Int
-    society_code Int
-    color        String?
-    link         TagOnBox[]
-    TagOnRoom    TagOnRoom[]
+model TagUser {
+    id      Int        @id @default(autoincrement())
+    name    String
+    user    User       @relation(fields: [id_user], references: [id], onDelete: Cascade)
+    id_user Int
+    link    TagOnBox[]
+}
+
+model TagSociety {
+    id         Int     @id @default(autoincrement())
+    name       String
+    color      String
+    id_society Int
+    society    Society @relation(fields: [id_society], references: [id], onDelete: SetNull)
+    Room       Room[]
 }
 
 model TagOnBox {
-    box    Box @relation(fields: [id_box], references: [id], onDelete: Cascade)
+    box    Box     @relation(fields: [id_box], references: [id], onDelete: Cascade)
     id_box Int
-    tag    Tag @relation(fields: [id_tag], references: [id], onDelete: Cascade)
+    tag    TagUser @relation(fields: [id_tag], references: [id], onDelete: Cascade)
     id_tag Int
 
     @@id([id_box, id_tag])
-}
-
-model TagOnRoom {
-    room    Room @relation(fields: [id_room], references: [id], onDelete: Cascade)
-    id_room Int
-    tag     Tag  @relation(fields: [id_tag], references: [id], onDelete: Cascade)
-    id_tag  Int
-
-    @@id([id_room, id_tag])
 }
 
 model Object {
@@ -92,8 +94,6 @@ model Object {
     creation_date DateTime @default(now())
     id_user       Int
     id_box        Int
-    id_room       Int
     user          User     @relation(fields: [id_user], references: [id], onDelete: Cascade)
     box           Box      @relation(fields: [id_box], references: [id], onDelete: Cascade)
-    room          Room     @relation(fields: [id_room], references: [id], onDelete: Cascade)
 }

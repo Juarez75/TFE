@@ -18,7 +18,7 @@ async function updatePwd(req, res) {
     //on vérifie que l'ancien mdp et le mdp de la bdd correspondent bien
     const exist = await bcrypt.compare(lastPwd, result.password)
     if (exist == false) {
-      return res.status(403).send("Le mdp actuel ne correspond pas")
+      return res.status(403).send("WRONG_PASSWORD")
     }
 
     //on hash le mdp
@@ -34,10 +34,10 @@ async function updatePwd(req, res) {
         password: hash
       }
     })
-    res.status(200).send("Modification effectuée")
+    res.status(200).send("Requête effectuée")
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = updatePwd

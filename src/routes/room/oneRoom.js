@@ -7,7 +7,7 @@ async function oneRoom(req, res) {
     //on vérifie que c'est bien un nombre et on le convertit
     const isaNumber = isNaN(id)
     if (isaNumber == true) {
-      return res.status(403).send("Int attendu")
+      return res.status(403).send("WRONG_PAGE")
     }
     id = parseInt(id)
 
@@ -17,32 +17,34 @@ async function oneRoom(req, res) {
         id: id
       },
       include: {
+        _count: {
+          select: { box: true }
+        },
         box: {
           include: {
+            _count: {
+              select: { objects: true }
+            },
             TagOnBox: {
               include: {
                 tag: true
               }
             }
           },
-          orderBy: {
-            name: "asc"
-          }
+          orderBy: [{ empty: "asc" }, { id: "asc" }]
         },
-        TagOnRoom: {
-          include: {
-            tag: true
-          }
-        }
+        TagSociety: true
       }
     })
+
     if (id_user != room.id_user) {
-      return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
+      return res.status(403).send("BAD_REQUEST")
     }
+
     res.status(200).send(room)
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = oneRoom

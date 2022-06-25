@@ -7,15 +7,13 @@ const jwt = require("jsonwebtoken")
 const { UnauthorizedError } = require("express-jwt")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cookieParser())
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
   })
@@ -58,7 +56,8 @@ const roomRoutes = require("./routes/room")
 const boxRoutes = require("./routes/box")
 const objectRoutes = require("./routes/object")
 const societyRoutes = require("./routes/society")
-const tagRoutes = require("./routes/tag")
+const tagSocietyRoutes = require("./routes/tag/society")
+const tagUserRoutes = require("./routes/tag/user")
 
 //-----------User---------------
 
@@ -92,6 +91,7 @@ app.get("/box/:id", boxRoutes.oneBox)
 app.post("/box/empty", boxRoutes.emptyBox)
 app.post("/box/fragile", boxRoutes.fragileBox)
 app.post("/box/createmany", boxRoutes.createMany)
+app.post("/box/deletemany", boxRoutes.deleteMany)
 
 // //------------Object------------------
 
@@ -108,16 +108,19 @@ app.post("/society/search", societyRoutes.searchUser)
 app.post("/society/updateColor", societyRoutes.updateColor)
 app.post("/society/pdf", societyRoutes.pdf)
 
-// --------------Tag----------------------
-app.post("/tag/create", tagRoutes.createTag)
-app.post("/tag/delete", tagRoutes.deleteTag)
-app.get("/tag/user", tagRoutes.userTag)
-app.get("/tag/society", tagRoutes.societyTag)
-app.post("/tag/linkBox", tagRoutes.linkBox)
-app.post("/tag/deletelinkbox", tagRoutes.destroyLinkBox)
-app.post("/tag/linkRoom", tagRoutes.linkRoom)
-app.post("/tag/deletelinkroom", tagRoutes.destroyLinkRoom)
-app.get("/tag/box/:id", tagRoutes.tagOnBox)
+// --------------TagSociety----------------------
+app.post("/tag/society/create", tagSocietyRoutes.createTagSociety)
+app.post("/tag/society/delete", tagSocietyRoutes.deleteTagSociety)
+app.get("/tag/society", tagSocietyRoutes.societyTag)
+app.post("/tag/society/deletelink", tagSocietyRoutes.destroyLinkRoom)
+
+// --------------TagUser----------------------
+app.post("/tag/user/create", tagUserRoutes.createTagUser)
+app.post("/tag/user/delete", tagUserRoutes.deleteTagUser)
+app.get("/tag/user", tagUserRoutes.userTag)
+app.post("/tag/user/deletelink", tagUserRoutes.destroyLinkBox)
+app.post("/tag/linkBox", tagUserRoutes.linkBox)
+app.get("/tag/box/:id", tagUserRoutes.tagOnBox)
 
 app.listen(port, () => {
   console.log("App listening on port " + port)

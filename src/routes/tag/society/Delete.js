@@ -1,23 +1,23 @@
-const { prisma } = require("../../prisma")
+const { prisma } = require("../../../prisma")
 
-async function deleteRoom(req, res) {
+async function deleteTagSociety(req, res) {
   try {
     //on récupère les données
-    const id = req.body.id
-    const id_user = req.auth.id
+    const id = parseInt(req.body.id)
+    const id_society = req.auth.id_society
 
     //vérification que c'est le bon utilisateur
-    const room = await prisma.room.findUnique({
+    const tag = await prisma.tagSociety.findUnique({
       where: {
         id: id
       }
     })
-    if (id_user != room.id_user) {
+    if (id_society != tag.id_society) {
       return res.status(403).send("BAD_REQUEST")
     }
 
     //Suppression d'une pièce dans la bdd
-    await prisma.room.delete({
+    await prisma.tagSociety.delete({
       where: {
         id: id
       }
@@ -28,4 +28,4 @@ async function deleteRoom(req, res) {
     res.status(400).send("ERROR")
   }
 }
-module.exports = deleteRoom
+module.exports = deleteTagSociety

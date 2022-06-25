@@ -13,6 +13,9 @@ async function listBox(req, res) {
       },
       include: {
         room: true,
+        _count: {
+          select: { objects: true }
+        },
         TagOnBox: {
           include: {
             tag: true
@@ -23,7 +26,7 @@ async function listBox(req, res) {
     res.status(200).send(box)
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = listBox

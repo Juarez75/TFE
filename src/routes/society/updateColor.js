@@ -3,7 +3,7 @@ const { prisma } = require("../../prisma")
 async function updateColor(req, res) {
   try {
     const id = req.auth.id
-    const society_code = req.auth.society_code
+    const id_society = req.auth.id_society
     const color = req.body.color
 
     //on vérifie si c'est bien la société qui veut le faire
@@ -12,22 +12,20 @@ async function updateColor(req, res) {
         id: id
       }
     })
-    if (user.society_code != society_code || user.type != 1)
-      return res
-        .status(403)
-        .send("Vous n'êtes pas autorisé à faire cette requête")
-    await prisma.user.updateMany({
+    if (user.id_society != id_society || user.type != 1)
+      return res.status(403).send("BAD_REQUEST")
+    await prisma.society.update({
       where: {
-        society_code: society_code
+        id: id_society
       },
       data: {
         color: color
       }
     })
-    res.status(200).send("Modifcation effectuée")
+    res.status(200).send("Requête effectuée")
   } catch (error) {
     console.log(error)
-    res.status(403).send("Une erreur est survenue")
+    res.status(403).send("ERROR")
   }
 }
 module.exports = updateColor

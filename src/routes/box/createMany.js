@@ -15,7 +15,7 @@ async function createMany(req, res) {
       }
     })
     if (id_user != room.id_user) {
-      return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
+      return res.status(403).send("BAD_REQUEST")
     }
     //on compte le nombre de box que l'utilisateur a déjà
     var existBox = await prisma.box.count({
@@ -26,7 +26,7 @@ async function createMany(req, res) {
     max = number + existBox
     existBox = existBox + 1
     for (i = existBox; i <= max; i++) {
-      name = "box" + i
+      name = "Box" + i
       await prisma.box.create({
         data: {
           id_room: id_room,
@@ -35,10 +35,10 @@ async function createMany(req, res) {
         }
       })
     }
-    res.status(200).send("AJout réussi")
+    res.status(200).send("Requête effectuée")
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = createMany

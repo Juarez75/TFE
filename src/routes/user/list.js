@@ -7,7 +7,7 @@ async function listUser(req, res) {
     res.status(200).send(users)
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = listUser

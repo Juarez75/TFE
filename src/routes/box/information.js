@@ -9,7 +9,7 @@ async function infoBox(req, res) {
     //on vérifie si l'id est bien un nombre et on le convertit en int
     const isaNumber = isNaN(id)
     if (isaNumber == true) {
-      return res.status(403).send("Int attendu")
+      return res.status(403).send("WRONG_PAGE")
     }
     id = parseInt(id)
 
@@ -28,12 +28,12 @@ async function infoBox(req, res) {
     })
     //on vérifie que c'est le bon utilisateur
     if (id_user != box.id_user) {
-      return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
+      return res.status(403).send("BAD_REQUEST")
     }
     res.status(200).send(box)
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = infoBox

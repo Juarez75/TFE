@@ -1,4 +1,4 @@
-const { prisma } = require("../../prisma")
+const { prisma } = require("../../../prisma")
 
 async function destroyLinkBox(req, res) {
   try {
@@ -13,10 +13,10 @@ async function destroyLinkBox(req, res) {
         id_box_id_tag: id_box_id_tag
       }
     })
-    res.status(200).send("Suppression effectuée")
+    res.status(200).send("Requête effectuée")
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = destroyLinkBox

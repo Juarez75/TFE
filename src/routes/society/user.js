@@ -14,7 +14,7 @@ async function listRoom(req, res) {
     })
 
     if (verifyUser.society_code != society_code) {
-      return res.status(403).send("Utilisateur non lié à la société")
+      return res.status(403).send("BAD_REQUEST")
     }
 
     //on recherche toutes les pièces de l'utilisateur
@@ -26,21 +26,13 @@ async function listRoom(req, res) {
         _count: {
           select: { box: true }
         },
-        TagOnRoom: {
-          include: {
-            tag: {
-              select: {
-                color: true
-              }
-            }
-          }
-        }
+        TagSociety: true
       }
     })
     res.status(200).send(rooms)
   } catch (error) {
     console.log(error)
-    res.status(403).send("Une erreur est survenue")
+    res.status(403).send("ERROR")
   }
 }
 module.exports = listRoom

@@ -1,3 +1,4 @@
+const { text } = require("express")
 const { prisma } = require("../../prisma")
 
 async function searchUser(req, res) {
@@ -8,21 +9,17 @@ async function searchUser(req, res) {
       where: {
         society_code: society_code,
         type: 2,
-        firstname: {
-          contains: text,
-          mode: "insensitive"
-        },
-        lastname: {
-          contains: text,
-          mode: "insensitive"
-        }
+        OR: [
+          { firstname: { contains: text, mode: "insensitive" } },
+          { lastname: { contains: text, mode: "insensitive" } }
+        ]
       }
     })
 
     res.status(200).send(user)
   } catch (error) {
     console.log(error)
-    res.status(403).send("Une erreur est survenue")
+    res.status(403).send("ERROR")
   }
 }
 module.exports = searchUser

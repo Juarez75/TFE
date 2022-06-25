@@ -12,7 +12,7 @@ async function pdf(req, res) {
       }
     })
     if (user.society_code != society_code) {
-      return res.status(403).send("Utilisateur non lié à la société")
+      return res.status(403).send("BAD_REQUEST")
     }
 
     const box = await prisma.box.findMany({
@@ -25,11 +25,7 @@ async function pdf(req, res) {
       include: {
         room: {
           include: {
-            TagOnRoom: {
-              include: {
-                tag: true
-              }
-            }
+            TagSociety: true
           }
         },
         user: true
@@ -38,7 +34,7 @@ async function pdf(req, res) {
     res.status(200).send(box)
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = pdf

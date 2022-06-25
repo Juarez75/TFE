@@ -15,7 +15,7 @@ async function createBox(req, res) {
       }
     })
     if (id_user != room.id_user) {
-      return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
+      return res.status(403).send("BAD_REQUEST")
     }
 
     //on ajoute la boite à la bdd
@@ -27,10 +27,10 @@ async function createBox(req, res) {
         comment: comment
       }
     })
-    res.status(200).send(box)
+    res.status(200).send("Requête effectuée")
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = createBox

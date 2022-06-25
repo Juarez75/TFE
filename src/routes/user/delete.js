@@ -10,10 +10,10 @@ async function deleteUser(req, res) {
         id: req.body.id
       }
     })
-    res.status(200).send("Suppression effectuée")
+    res.status(200).send("Requête effectuée")
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = deleteUser

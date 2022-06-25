@@ -14,21 +14,13 @@ async function listRoom(req, res) {
         _count: {
           select: { box: true }
         },
-        TagOnRoom: {
-          include: {
-            tag: {
-              select: {
-                color: true
-              }
-            }
-          }
-        }
+        TagSociety: true
       }
     })
     res.status(200).send(rooms)
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = listRoom

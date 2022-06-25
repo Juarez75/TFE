@@ -19,14 +19,13 @@ async function infoUser(req, res) {
       mail: user.mail,
       firstname: user.firstname,
       lastname: user.lastname,
-      society_code: user.society_code,
-      color: user.color,
+      id_society: user.id_society,
       tag: user.Tag
     }
     res.status(200).send(data)
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = infoUser

@@ -2,14 +2,12 @@ const { prisma } = require("../../prisma")
 
 async function infoRoom(req, res) {
   try {
-    id = req.params.id
-    id_user = req.auth.id
+    const id = parseInt(req.params.id)
+    const id_user = req.auth.id
     //on vérifie que c'est bien un nombre et on le convertit
-    const isaNumber = isNaN(id)
-    if (isaNumber == true) {
-      return res.status(403).send("Int attendu")
+    if (isNaN(id)) {
+      return res.status(403).send("WRONG_PAGE")
     }
-    id = parseInt(id)
 
     //on récupère les données dans la bdd
     const room = await prisma.room.findUnique({
@@ -17,20 +15,16 @@ async function infoRoom(req, res) {
         id: id
       },
       include: {
-        TagOnRoom: {
-          include: {
-            tag: true
-          }
-        }
+        TagSociety: true
       }
     })
     if (id_user != room.id_user) {
-      return res.status(403).send("Vous n'êtes pas autorisé à faire ceci")
+      return res.status(403).send("BAD_REQUEST")
     }
     res.status(200).send(room)
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = infoRoom

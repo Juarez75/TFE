@@ -1,4 +1,4 @@
-const { prisma } = require("../../prisma")
+const { prisma } = require("../../../prisma")
 
 async function tagOnBox(req, res) {
   try {
@@ -17,7 +17,7 @@ async function tagOnBox(req, res) {
     res.status(200).send(tag)
   } catch (error) {
     console.log(error)
-    return res.status(400).send("Une erreur est survenue")
+    return res.status(400).send("ERROR")
   }
 }
 module.exports = tagOnBox

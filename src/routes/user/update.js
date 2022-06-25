@@ -13,7 +13,7 @@ async function updateUser(req, res) {
     const mailSchema = Joi.string().email().required()
     const validateMail = mailSchema.validate(mail)
     if (validateMail.error) {
-      return res.status(403).send("E-mail invalide")
+      return res.status(403).send("WRONG_MAIL")
     }
 
     //on vérifie que l'email n'est pas déjà utilisé par un autre utilisateur
@@ -23,7 +23,7 @@ async function updateUser(req, res) {
       }
     })
     if (existingUser != null && existingUser.id != id) {
-      return res.status(403).send("L'email est déjà reliée à un autre compte")
+      return res.status(403).send("EXISTING_MAIL")
     }
 
     //on modifie les données dans la bdd
@@ -37,10 +37,10 @@ async function updateUser(req, res) {
         mail: mail
       }
     })
-    res.status(200).send("Modification effectuée")
+    res.status(200).send("Requête effectuée")
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = updateUser

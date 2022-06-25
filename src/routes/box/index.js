@@ -7,6 +7,7 @@ const oneBox = require("./oneBox")
 const emptyBox = require("./empty")
 const fragileBox = require("./fragile")
 const createMany = require("./createMany")
+const deleteMany = require("./deleteMany")
 
 exports.createBox = createBox
 exports.deleteBox = deleteBox
@@ -17,3 +18,4 @@ exports.oneBox = oneBox
 exports.emptyBox = emptyBox
 exports.fragileBox = fragileBox
 exports.createMany = createMany
+exports.deleteMany = deleteMany

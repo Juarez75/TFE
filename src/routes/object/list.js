@@ -9,14 +9,13 @@ async function listObject(req, res) {
         id_user: id
       },
       include: {
-        room: true,
         box: true
       }
     })
     res.status(200).send(objects)
   } catch (error) {
     console.log(error)
-    res.status(400).send("Une erreur est survenue")
+    res.status(400).send("ERROR")
   }
 }
 module.exports = listObject

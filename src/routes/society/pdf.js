@@ -19,9 +19,14 @@ async function pdf(req, res) {
       where: {
         id_user: id_user
       },
-      orderBy: {
-        id_room: "asc"
-      },
+      orderBy: [
+        {
+          id_room: "asc"
+        },
+        {
+          id: "asc"
+        }
+      ],
       include: {
         room: {
           include: {

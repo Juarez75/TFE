@@ -8,9 +8,7 @@ async function listBox(req, res) {
       where: {
         id_user: id_user
       },
-      orderBy: {
-        name: "asc"
-      },
+      orderBy: [{ empty: "asc" }, { id: "asc" }],
       include: {
         room: true,
         _count: {

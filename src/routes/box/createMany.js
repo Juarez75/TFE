@@ -26,7 +26,7 @@ async function createMany(req, res) {
     max = number + existBox
     existBox = existBox + 1
     for (i = existBox; i <= max; i++) {
-      name = "Box" + i
+      name = "Caisse" + i
       await prisma.box.create({
         data: {
           id_room: id_room,

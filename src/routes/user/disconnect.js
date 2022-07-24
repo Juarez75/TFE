@@ -1,6 +1,7 @@
 async function disconnect(req, res) {
   try {
     res.clearCookie("access_token")
+    res.clearCookie("refresh_token")
     res.status(200).send("Requête effectuée")
   } catch (error) {
     console.log(error)

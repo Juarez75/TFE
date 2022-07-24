@@ -24,7 +24,7 @@ app.use((request, response, next) => {
   try {
     let req = request
     const route = req.originalUrl
-    const uncheckedRoutes = ["/user/login", "/user/create"]
+    const uncheckedRoutes = ["/user/login", "/user/create", "/refreshToken"]
 
     // Si on est dans les routes du tableau au dessus, on check rien
     if (uncheckedRoutes.includes(route)) {
@@ -36,7 +36,7 @@ app.use((request, response, next) => {
 
     // On vérifie l'authenticitée du cookie
     try {
-      jwt.verify(token, process.env.TOKEN_SECRET)
+      jwt.verify(token, process.env.TOKEN_ACCESS_SECRET)
     } catch (error) {
       console.log(error)
       throw new UnauthorizedError("invalid_token", error)
@@ -70,6 +70,7 @@ app.post("/user/update", userRoutes.updateUser)
 app.post("/user/updatePwd", userRoutes.updatePwd)
 app.get("/user/disconnect", userRoutes.disconnect)
 app.post("/search", userRoutes.search)
+app.get("/refreshToken", userRoutes.refreshToken)
 
 //--------------Room----------------
 

@@ -3,9 +3,9 @@ const { prisma } = require("../../prisma")
 
 async function searchUser(req, res) {
   try {
-    text = req.body.search
-    society_code = req.auth.society_code
-    const user = await prisma.user.findMany({
+    const text = req.body.search
+    const society_code = req.auth.society_code
+    var user = await prisma.user.findMany({
       where: {
         society_code: society_code,
         type: 2,

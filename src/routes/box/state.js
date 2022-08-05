@@ -1,10 +1,10 @@
 const { prisma } = require("../../prisma")
 
-async function emptyBox(req, res) {
+async function stateBox(req, res) {
   try {
     //on récupère les données
-    const id = req.body.id
-    const empty = req.body.empty
+    const id = parseInt(req.body.id)
+    const state = parseInt(req.body.state)
     const id_user = req.auth.id
 
     //vérification que c'est le bon utilisateur
@@ -23,7 +23,7 @@ async function emptyBox(req, res) {
         id: id
       },
       data: {
-        empty: empty
+        state: state
       }
     })
     res.status(200).send("Requête effectuée")
@@ -32,4 +32,4 @@ async function emptyBox(req, res) {
     res.status(400).send("ERROR")
   }
 }
-module.exports = emptyBox
+module.exports = stateBox

@@ -89,10 +89,11 @@ app.get("/box/information/:id", boxRoutes.infoBox)
 app.get("/box/list", boxRoutes.listBox)
 app.post("/box/update", boxRoutes.updateBox)
 app.get("/box/:id", boxRoutes.oneBox)
-app.post("/box/empty", boxRoutes.emptyBox)
+app.post("/box/state", boxRoutes.stateBox)
 app.post("/box/fragile", boxRoutes.fragileBox)
 app.post("/box/createmany", boxRoutes.createMany)
 app.post("/box/deletemany", boxRoutes.deleteMany)
+app.get("/box/qrcode/:id", boxRoutes.infoQrCode)
 
 // //------------Object------------------
 

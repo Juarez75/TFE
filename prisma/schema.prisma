@@ -52,7 +52,7 @@ model Box {
     name          String
     comment       String?
     creation_date DateTime   @default(now())
-    empty         Boolean    @default(false)
+    state         Int        @default(0)
     fragile       Boolean    @default(false)
     id_user       Int
     id_room       Int

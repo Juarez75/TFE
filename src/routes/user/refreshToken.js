@@ -7,7 +7,6 @@ async function refreshToken(req, res) {
     const REDIS_PORT = process.env.REDIS_PORT || 6379
     const client = redis.createClient(REDIS_PORT)
     client.connect()
-    let color
     const token = req.cookies.refresh_token
     const decoded = jwt.decode(token, { complete: true })
     try {
@@ -18,7 +17,7 @@ async function refreshToken(req, res) {
     }
     //on vérifie le refresh token dans le cache
     const cacheList = await client.get(decoded.payload.id + "")
-    if (cacheList == null) return res.status(401).send("Error")
+    if (cacheList == null) return res.status(401).send("Refresh inexistant")
     const listToken = JSON.parse(cacheList)
     listToken.forEach((element) => {
       if (element == token) existingToken = true
@@ -40,14 +39,7 @@ async function refreshToken(req, res) {
       const access_token = jwt.sign(user, process.env.TOKEN_ACCESS_SECRET, {
         expiresIn: "3h"
       })
-      if (result.id_society == null) color = "#707070"
-      else color = result.society.color
-      const data = {
-        id: result.id,
-        type: result.type,
-        id_society: result.id_society,
-        color: color
-      }
+
       return res
         .cookie("access_token", access_token, {
           httpOnly: true,
@@ -55,7 +47,9 @@ async function refreshToken(req, res) {
           expires: new Date(Date.now() + 3 * 3600000)
         })
         .status(200)
-        .send(data)
+        .send("Réussi")
+    } else {
+      return res.status(400).send("ERROR")
     }
   } catch (e) {
     console.log(e)

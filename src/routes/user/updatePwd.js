@@ -1,5 +1,6 @@
 const { prisma } = require("../../prisma")
 const bcrypt = require("bcrypt")
+const redis = require("redis")
 
 async function updatePwd(req, res) {
   try {
@@ -7,6 +8,17 @@ async function updatePwd(req, res) {
     const lastPwd = req.body.lastPwd
     const newPwd = req.body.newPwd
     const id = req.auth.id
+
+    const REDIS_PORT = process.env.REDIS_PORT || 6379
+    const client = redis.createClient(REDIS_PORT)
+    client.connect()
+    const token = req.cookies.refresh_token
+
+    var listToken = []
+
+    listToken.push(token)
+    const cacheList = JSON.stringify(listToken)
+    await client.set(id + "", cacheList)
 
     //on récupère le mdp de l'utilisateur dans la bdd
     const result = await prisma.user.findUnique({

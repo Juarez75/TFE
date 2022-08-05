@@ -31,7 +31,7 @@ async function oneRoom(req, res) {
               }
             }
           },
-          orderBy: [{ empty: "asc" }, { id: "asc" }]
+          orderBy: [{ state: "asc" }, { id: "asc" }]
         },
         TagSociety: true
       }

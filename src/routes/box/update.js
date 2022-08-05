@@ -7,6 +7,7 @@ async function updateBox(req, res) {
     const name = req.body.name
     const comment = req.body.comment
     const id_room = parseInt(req.body.id_room)
+    const state = parseInt(req.body.state)
 
     //vérification que c'est le bon utilisateur
     const box = await prisma.box.findUnique({
@@ -26,7 +27,8 @@ async function updateBox(req, res) {
       data: {
         name: name,
         comment: comment,
-        id_room: id_room
+        id_room: id_room,
+        state: state
       }
     })
     res.status(200).send("Requête effectuée")

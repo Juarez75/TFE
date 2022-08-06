@@ -94,6 +94,7 @@ app.post("/box/fragile", boxRoutes.fragileBox)
 app.post("/box/createmany", boxRoutes.createMany)
 app.post("/box/deletemany", boxRoutes.deleteMany)
 app.get("/box/qrcode/:id", boxRoutes.infoQrCode)
+app.post("/box/updateManyRoom", boxRoutes.updateManyBoxRoom)
 
 // //------------Object------------------
 

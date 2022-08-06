@@ -9,6 +9,7 @@ const fragileBox = require("./fragile")
 const createMany = require("./createMany")
 const deleteMany = require("./deleteMany")
 const infoQrCode = require("./infoQrCode")
+const updateManyBoxRoom = require("./updateManyBoxRoom")
 
 exports.createBox = createBox
 exports.deleteBox = deleteBox
@@ -21,3 +22,4 @@ exports.fragileBox = fragileBox
 exports.createMany = createMany
 exports.deleteMany = deleteMany
 exports.infoQrCode = infoQrCode
+exports.updateManyBoxRoom = updateManyBoxRoom

@@ -7,6 +7,15 @@ const jwt = require("jsonwebtoken")
 const { UnauthorizedError } = require("express-jwt")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
+const multer = require("multer")
+const { prisma } = require("./prisma")
+const path = require("path")
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024 // Limite de 5mb
+  }
+})
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -50,6 +59,9 @@ app.use((request, response, next) => {
   }
 })
 
+//accès aux photos
+app.use("/private", express.static(path.join(__dirname, "../uploads")))
+
 //------------Importation des routes-----------------
 const userRoutes = require("./routes/user")
 const roomRoutes = require("./routes/room")
@@ -83,11 +95,11 @@ app.get("/room/:id", roomRoutes.oneRoom)
 
 //-------------Box---------------
 
-app.post("/box/create", boxRoutes.createBox)
+app.post("/box/create", upload.single("picture"), boxRoutes.createBox)
 app.post("/box/delete", boxRoutes.deleteBox)
 app.get("/box/information/:id", boxRoutes.infoBox)
 app.get("/box/list", boxRoutes.listBox)
-app.post("/box/update", boxRoutes.updateBox)
+app.post("/box/update", upload.single("picture"), boxRoutes.updateBox)
 app.get("/box/:id", boxRoutes.oneBox)
 app.post("/box/state", boxRoutes.stateBox)
 app.post("/box/fragile", boxRoutes.fragileBox)

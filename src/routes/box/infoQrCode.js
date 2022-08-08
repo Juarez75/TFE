@@ -30,7 +30,8 @@ async function infoQrCode(req, res) {
     }
     const data = {
       name: box.name,
-      state: box.state
+      state: box.state,
+      url_img: box.url_img
     }
     res.status(200).send(data)
   } catch (error) {

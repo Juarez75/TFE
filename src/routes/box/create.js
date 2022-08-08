@@ -1,4 +1,8 @@
 const { prisma } = require("../../prisma")
+const path = require("path")
+const fs = require("fs")
+const { randomUUID } = require("crypto")
+const sharp = require("sharp")
 
 async function createBox(req, res) {
   try {
@@ -6,7 +10,23 @@ async function createBox(req, res) {
     const id_user = req.auth.id
     const name = req.body.name
     const comment = req.body.comment
-    const id_room = req.body.id_room
+    const id_room = parseInt(req.body.id_room)
+    var url_img
+    var err
+    //test Photo
+    if (req.file != undefined) {
+      const buffer = await sharp(req.file.buffer).resize(300, 300).toBuffer()
+      const tempPath = req.file.originalname
+      const targetPath = path.join(__dirname, "./uploads/image.png")
+      const uid = randomUUID()
+      fs.createWriteStream("../uploads/" + uid + ".jpg").write(buffer)
+      fs.rename(tempPath, targetPath, (e) => {
+        if (e) err = true
+      })
+      if (err) return res.status(403).send("BADIMAGE")
+      url_img =
+        req.protocol + "://" + req.headers.host + "/private/" + uid + ".jpg"
+    }
 
     //vérification que c'est la pièce appartient bien à l'utilisateur
     const room = await prisma.room.findUnique({
@@ -24,7 +44,8 @@ async function createBox(req, res) {
         id_room: id_room,
         id_user: id_user,
         name: name,
-        comment: comment
+        comment: comment,
+        url_img: url_img
       }
     })
     res.status(200).send("Requête effectuée")

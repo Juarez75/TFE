@@ -1,13 +1,36 @@
 const { prisma } = require("../../prisma")
+const path = require("path")
+const fs = require("fs")
+const { randomUUID } = require("crypto")
+const sharp = require("sharp")
 
 async function updateBox(req, res) {
   try {
     //on récupère les données
-    const id = req.body.id
+    const id = parseInt(req.body.id)
     const name = req.body.name
     const comment = req.body.comment
     const id_room = parseInt(req.body.id_room)
     const state = parseInt(req.body.state)
+    const imgChanged = req.body.imgChanged
+    var url_img = null
+    var err
+
+    if (imgChanged) {
+      if (req.file != undefined) {
+        const buffer = await sharp(req.file.buffer).resize(300, 300).toBuffer()
+        // const tempPath = req.file.originalname
+        // const targetPath = path.join(__dirname, "./uploads")
+        const uid = randomUUID()
+        fs.createWriteStream("../uploads/" + uid + ".jpg").write(buffer)
+        // fs.rename(tempPath, targetPath, (e) => {
+        //   if (e) err = true
+        // })
+        if (err) return res.status(403).send("BADIMAGE")
+        url_img =
+          req.protocol + "://" + req.headers.host + "/private/" + uid + ".jpg"
+      }
+    }
 
     //vérification que c'est le bon utilisateur
     const box = await prisma.box.findUnique({
@@ -20,17 +43,53 @@ async function updateBox(req, res) {
     }
 
     //on actualise les données de la boite
-    await prisma.box.update({
-      where: {
-        id: id
-      },
-      data: {
-        name: name,
-        comment: comment,
-        id_room: id_room,
-        state: state
+    if (imgChanged) {
+      if (box.url_img != null) {
+        console.log(
+          box.url_img.replace(
+            req.protocol + "://" + req.headers.host + "/private/",
+            ""
+          )
+        )
+        const targetPath =
+          "../uploads/" +
+          box.url_img.replace(
+            req.protocol + "://" + req.headers.host + "/private/",
+            ""
+          )
+
+        console.log(targetPath)
+        fs.unlink(targetPath, (e) => {
+          if (e) console.log(e)
+        })
       }
-    })
+
+      await prisma.box.update({
+        where: {
+          id: id
+        },
+        data: {
+          name: name,
+          comment: comment,
+          id_room: id_room,
+          state: state,
+          url_img: url_img
+        }
+      })
+    } else {
+      await prisma.box.update({
+        where: {
+          id: id
+        },
+        data: {
+          name: name,
+          comment: comment,
+          id_room: id_room,
+          state: state
+        }
+      })
+    }
+
     res.status(200).send("Requête effectuée")
   } catch (error) {
     console.log(error)

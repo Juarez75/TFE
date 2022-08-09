@@ -1,4 +1,5 @@
 const { prisma } = require("../../prisma")
+const fs = require("fs")
 
 async function deleteMany(req, res) {
   try {
@@ -8,7 +9,6 @@ async function deleteMany(req, res) {
     var box
 
     list.map(async (item) => {
-      console.log(item)
       box = await prisma.box.findUnique({
         where: {
           id: item
@@ -17,14 +17,26 @@ async function deleteMany(req, res) {
       //vérification que c'est le bon utilisateur
       if (id_user != box.id_user) {
         return res.status(403).send("BAD_REQUEST")
-      } else {
-        //Si bon utilisateur on supprime la caisse
-        await prisma.box.delete({
-          where: {
-            id: item
-          }
+      }
+      //on supprime la photo si une est liée
+      if (box.url_img != null) {
+        const targetPath =
+          "../uploads/" +
+          box.url_img.replace(
+            req.protocol + "://" + req.headers.host + "/private/",
+            ""
+          )
+
+        fs.unlink(targetPath, (e) => {
+          if (e) console.log(e)
         })
       }
+      //Si bon utilisateur on supprime la caisse
+      await prisma.box.delete({
+        where: {
+          id: item
+        }
+      })
     })
 
     res.status(200).send("Requête effectuée")

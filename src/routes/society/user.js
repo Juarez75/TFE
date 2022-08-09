@@ -4,7 +4,8 @@ async function listRoom(req, res) {
   try {
     //on récupère l'id utilisateur grâce au token
     const id = parseInt(req.params.id)
-    const society_code = req.auth.society_code
+    const id_society = req.auth.id_society
+    const type = req.auth.type
 
     //on vérifie que l'utilisateur est bien lié à la société
     const verifyUser = await prisma.user.findUnique({
@@ -13,7 +14,7 @@ async function listRoom(req, res) {
       }
     })
 
-    if (verifyUser.society_code != society_code) {
+    if (verifyUser.id_society != id_society || type != 1) {
       return res.status(403).send("BAD_REQUEST")
     }
 

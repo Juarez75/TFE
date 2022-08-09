@@ -1,13 +1,12 @@
-const { text } = require("express")
 const { prisma } = require("../../prisma")
 
 async function searchUser(req, res) {
   try {
     const text = req.body.search
-    const society_code = req.auth.society_code
+    const id_society = req.auth.id_society
     var user = await prisma.user.findMany({
       where: {
-        society_code: society_code,
+        id_society: id_society,
         type: 2,
         OR: [
           { firstname: { contains: text, mode: "insensitive" } },

@@ -16,6 +16,7 @@ async function infoUser(req, res) {
     })
 
     data = {
+      id: user.id,
       mail: user.mail,
       firstname: user.firstname,
       lastname: user.lastname,

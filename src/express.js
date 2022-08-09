@@ -83,6 +83,7 @@ app.post("/user/updatePwd", userRoutes.updatePwd)
 app.get("/user/disconnect", userRoutes.disconnect)
 app.post("/search", userRoutes.search)
 app.get("/refreshToken", userRoutes.refreshToken)
+app.post("/user/pdf", societyRoutes.pdf)
 
 //--------------Room----------------
 
@@ -119,9 +120,9 @@ app.get("/object/information/:id", objectRoutes.infoObject)
 // -------------Society------------------
 app.get("/society/users", societyRoutes.allUser)
 app.get("/society/user/:id", societyRoutes.user)
-app.post("/society/search", societyRoutes.searchUser)
 app.post("/society/updateColor", societyRoutes.updateColor)
-app.post("/society/pdf", societyRoutes.pdf)
+app.post("/society/unlink", societyRoutes.unLinkUser)
+app.post("/society/search", societyRoutes.searchUser)
 
 // --------------TagSociety----------------------
 app.post("/tag/society/create", tagSocietyRoutes.createTagSociety)

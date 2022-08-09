@@ -45,12 +45,6 @@ async function updateBox(req, res) {
     //on actualise les données de la boite
     if (imgChanged) {
       if (box.url_img != null) {
-        console.log(
-          box.url_img.replace(
-            req.protocol + "://" + req.headers.host + "/private/",
-            ""
-          )
-        )
         const targetPath =
           "../uploads/" +
           box.url_img.replace(
@@ -58,7 +52,6 @@ async function updateBox(req, res) {
             ""
           )
 
-        console.log(targetPath)
         fs.unlink(targetPath, (e) => {
           if (e) console.log(e)
         })

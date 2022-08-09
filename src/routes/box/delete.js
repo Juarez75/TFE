@@ -1,4 +1,5 @@
 const { prisma } = require("../../prisma")
+const fs = require("fs")
 
 async function deleteBox(req, res) {
   try {
@@ -13,6 +14,20 @@ async function deleteBox(req, res) {
     })
     if (id_user != box.id_user) {
       return res.status(403).send("BAD_REQUEST")
+    }
+
+    //on supprime l'image
+    if (box.url_img != null) {
+      const targetPath =
+        "../uploads/" +
+        box.url_img.replace(
+          req.protocol + "://" + req.headers.host + "/private/",
+          ""
+        )
+
+      fs.unlink(targetPath, (e) => {
+        if (e) console.log(e)
+      })
     }
 
     //on supprime la boite de la bdd

@@ -123,6 +123,9 @@ app.get("/society/user/:id", societyRoutes.user)
 app.post("/society/updateColor", societyRoutes.updateColor)
 app.post("/society/unlink", societyRoutes.unLinkUser)
 app.post("/society/search", societyRoutes.searchUser)
+app.get("/society/profile", societyRoutes.profileSociety)
+app.get("/society/graphLastDays", societyRoutes.graphLastDays)
+app.post("/society/graphMonth", societyRoutes.graphMonth)
 
 // --------------TagSociety----------------------
 app.post("/tag/society/create", tagSocietyRoutes.createTagSociety)

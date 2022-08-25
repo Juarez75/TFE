@@ -40,6 +40,9 @@ async function login(req, res) {
       type: result.type,
       id_society: result.id_society
     }
+    const refreshTokenData = {
+      id: result.id
+    }
     if (result.id_society == null) color = "#707070"
     else color = result.society.color
     const data = {
@@ -52,9 +55,13 @@ async function login(req, res) {
     const access_token = jwt.sign(user, process.env.TOKEN_ACCESS_SECRET, {
       expiresIn: "3h"
     })
-    const refresh_token = jwt.sign(user, process.env.TOKEN_REFRESH_SECRET, {
-      expiresIn: "1y"
-    })
+    const refresh_token = jwt.sign(
+      refreshTokenData,
+      process.env.TOKEN_REFRESH_SECRET,
+      {
+        expiresIn: "1y"
+      }
+    )
 
     //on inscrit le refresh token dans le cache
     var listToken

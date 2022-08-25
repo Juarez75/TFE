@@ -3,7 +3,7 @@ const { prisma } = require("../../prisma")
 async function createMany(req, res) {
   try {
     const id_user = req.auth.id
-    const number = parseInt(req.body.number)
+    const addBox = parseInt(req.body.number)
     const id_room = req.body.id_room
     var max
     var name
@@ -18,15 +18,27 @@ async function createMany(req, res) {
       return res.status(403).send("BAD_REQUEST")
     }
     //on compte le nombre de box que l'utilisateur a déjà
-    var existBox = await prisma.box.count({
-      where: {
-        id_user: id_user
-      }
-    })
-    max = number + existBox
-    existBox = existBox + 1
+    var i = 0
+    var existBox
+    do {
+      var lastBox = await prisma.box.findFirst({
+        skip: i,
+        where: {
+          id_user: id_user,
+          name: { startsWith: `Caisse_` }
+        },
+        orderBy: {
+          creation_date: "desc"
+        }
+      })
+      if (lastBox == null) existBox = 1
+      else existBox = parseInt(lastBox.name.replace("Caisse_", "")) + 1
+      i++
+    } while (isNaN(existBox))
+
+    max = addBox + existBox - 1
     for (i = existBox; i <= max; i++) {
-      name = "Caisse" + i
+      name = "Caisse_" + i
       await prisma.box.create({
         data: {
           id_room: id_room,

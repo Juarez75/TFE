@@ -33,7 +33,12 @@ app.use((request, response, next) => {
   try {
     let req = request
     const route = req.originalUrl
-    const uncheckedRoutes = ["/user/login", "/user/create", "/refreshToken"]
+    const uncheckedRoutes = [
+      "/user/login",
+      "/user/create",
+      "/refreshToken",
+      "/test"
+    ]
 
     // Si on est dans les routes du tableau au dessus, on check rien
     if (uncheckedRoutes.includes(route)) {
@@ -70,6 +75,7 @@ const objectRoutes = require("./routes/object")
 const societyRoutes = require("./routes/society")
 const tagSocietyRoutes = require("./routes/tag/society")
 const tagUserRoutes = require("./routes/tag/user")
+const test = require("./routes/box/test")
 
 //-----------User---------------
 
@@ -108,6 +114,8 @@ app.post("/box/createmany", boxRoutes.createMany)
 app.post("/box/deletemany", boxRoutes.deleteMany)
 app.get("/box/qrcode/:id", boxRoutes.infoQrCode)
 app.post("/box/updateManyRoom", boxRoutes.updateManyBoxRoom)
+
+app.post("/test", test)
 
 // //------------Object------------------
 

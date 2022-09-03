@@ -8,7 +8,7 @@ async function graphLastDays(req, res) {
     var maxDays
     date.setHours(0)
     date.setMinutes(0)
-    date.setSeconds(0)
+    date.setSeconds(1)
     day = date.getDate()
     month = date.getMonth()
     day = day - 29
@@ -66,12 +66,14 @@ function verifUpDate(date, maxDays) {
     if (month == 11) {
       verifDate.setFullYear(verifDate.getFullYear() + 1)
       month = 0
-    } else month = month + 1
+    } else {
+      month = month + 1
+    }
     day = 0
   }
   day = day + 1
-  verifDate.setMonth(month)
   verifDate.setDate(day)
+  verifDate.setMonth(month)
   return verifDate
 }
 module.exports = graphLastDays

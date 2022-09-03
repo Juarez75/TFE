@@ -35,7 +35,7 @@ async function infoUser(req, res) {
     })
     const graphData = [
       { name: "Prête", value: readyBox },
-      { name: "Démangée", value: movedBox },
+      { name: "Démanagée", value: movedBox },
       { name: "Vidée", value: emptyBox }
     ]
     data = {

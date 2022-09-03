@@ -4,6 +4,7 @@ async function infoQrCode(req, res) {
   //on récupère les données
   try {
     const id_user = req.auth.id
+    console.log(id_user)
     const id_society = req.auth.id_society
     const type = req.auth.type
     var id_box = req.params.id
@@ -23,8 +24,9 @@ async function infoQrCode(req, res) {
     })
 
     if (
-      id_user != box.id_user ||
-      (type == 1 && id_society != box.user.id_society)
+      id_user != box.id_user &&
+      type != 1 &&
+      id_society != box.user.id_society
     ) {
       return res.status(403).send("BAD_REQUEST")
     }

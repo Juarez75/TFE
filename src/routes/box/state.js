@@ -5,6 +5,7 @@ async function stateBox(req, res) {
     //on récupère les données
     const id = parseInt(req.body.id)
     const state = parseInt(req.body.state)
+    const type = req.auth.type
     const id_user = req.auth.id
     // State : 0 = Prête | 1 = Déménagée | 2 = Vide
     var date = new Date()
@@ -12,12 +13,18 @@ async function stateBox(req, res) {
     const box = await prisma.box.findUnique({
       where: {
         id: id
+      },
+      include: {
+        user: true
       }
     })
-    if (id_user != box.id_user) {
+    if (
+      id_user != box.id_user &&
+      type != 1 &&
+      id_society != box.user.id_society
+    ) {
       return res.status(403).send("BAD_REQUEST")
     }
-
     //on actualise les données dans la base de données
     if (state == 0 || state == 2) {
       await prisma.box.update({

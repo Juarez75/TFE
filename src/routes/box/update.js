@@ -19,13 +19,8 @@ async function updateBox(req, res) {
     if (imgChanged) {
       if (req.file != undefined) {
         const buffer = await sharp(req.file.buffer).resize(300, 300).toBuffer()
-        // const tempPath = req.file.originalname
-        // const targetPath = path.join(__dirname, "./uploads")
         const uid = randomUUID()
         fs.createWriteStream("../uploads/" + uid + ".jpg").write(buffer)
-        // fs.rename(tempPath, targetPath, (e) => {
-        //   if (e) err = true
-        // })
         if (err) return res.status(403).send("BADIMAGE")
         url_img =
           req.protocol + "://" + req.headers.host + "/private/" + uid + ".jpg"

@@ -6,7 +6,7 @@ async function graphMonth(req, res) {
     const year = parseInt(req.body.year)
     const id_society = req.auth.id_society
 
-    var date = new Date(year, month, 1, 0, 0, 0, 1)
+    var date = new Date(year, month, 1, 0, 0, 0, 0)
     var maxDays
     switch (month) {
       case 0:
@@ -29,7 +29,7 @@ async function graphMonth(req, res) {
         if (date.getFullYear % 4 == 0) maxDays = 29
         break
     }
-
+    maxDays++
     var data = []
     var secondDate = new Date(date)
     secondDate.setDate(date.getDate() + 1)
@@ -47,7 +47,7 @@ async function graphMonth(req, res) {
       })
       data.push({ date: new Date(date), value: number })
       date.setDate(date.getDate() + 1)
-      if (secondDate.getDate() == maxDays) {
+      if (date.getDate() - 1 == maxDays) {
         secondDate.setHours(23)
         secondDate.setMinutes(59)
         secondDate.setSeconds(59)

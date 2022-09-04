@@ -149,6 +149,10 @@ app.post("/tag/user/deletelink", tagUserRoutes.destroyLinkBox)
 app.post("/tag/linkBox", tagUserRoutes.linkBox)
 app.get("/tag/box/:id", tagUserRoutes.tagOnBox)
 
+app.get("/isconnected", (req, res) => {
+  res.send("Already connected")
+})
+
 app.listen(port, () => {
   console.log("App listening on port " + port)
 })
